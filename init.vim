@@ -7,6 +7,7 @@ set autoindent
 set smarttab
 set listchars=tab:\|\ 
 set list
+set relativenumber
 let mapleader="."
 
 call plug#begin()
@@ -43,14 +44,22 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'saadparwaiz1/cmp_luasnip'
 
+" Autocompletion
+Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v3.x'}
+
+Plug 'https://github.com/williamboman/mason.nvim'
+Plug 'https://github.com/williamboman/mason-lspconfig.nvim'
 " Snippets
 Plug 'L3MON4D3/LuaSnip'
 Plug 'rafamadriz/friendly-snippets'
+Plug 'w0rp/ale'
 
 call plug#end()
 
 autocmd VimEnter * TSEnable highlight
-colorscheme ayu-dark 
+colorscheme gruvbox 
+
+let b:ale_linters = {'python': ['flake8']} 
 
 "undotree
 nnoremap <C-u> :UndotreeToggle<CR>
@@ -61,7 +70,11 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
+" doing stuff faster
 nnoremap <C-s> :w<cr>
+nnoremap wq :wq<cr>
+nnoremap qq :q!<cr>
+
 nnoremap <C-t> :NERDTreeToggle<CR>
 
 " moving between split windows
@@ -116,35 +129,6 @@ local check_backspace = function()
   local col = vim.fn.col "." - 1
   return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
 end
-
-local kind_icons = {
-  Text = "󰉿",
-	Method = "󰆧",
-	Function = "󰊕",
-	Constructor = "",
-  Field = " ",
-	Variable = "󰀫",
-	Class = "󰠱",
-	Interface = "",
-	Module = "",
-	Property = "󰜢",
-	Unit = "󰑭",
-	Value = "󰎠",
-	Enum = "",
-	Keyword = "󰌋",
-  Snippet = "",
-	Color = "󰏘",
-	File = "󰈙",
-  Reference = "",
-	Folder = "󰉋",
-	EnumMember = "",
-	Constant = "󰏿",
-  Struct = "",
-	Event = "",
-	Operator = "󰆕",
-  TypeParameter = " ",
-	Misc = " ",
-}
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
 cmp.setup {
@@ -197,10 +181,9 @@ cmp.setup {
     }),
   },
   formatting = {
-    fields = { "kind", "abbr", "menu" },
+    fields = { "abbr", "menu" },
     format = function(entry, vim_item)
       -- Kind icons
-      vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
       -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
       vim_item.menu = ({
         nvim_lsp = "[LSP]",
@@ -231,4 +214,24 @@ cmp.setup {
     native_menu = false,
   },
 }
+
+local lsp_zero = require('lsp-zero')
+
+lsp_zero.on_attach(function(client, bufnr)
+  -- see :help lsp-zero-keybindings
+  -- to learn the available actions
+  lsp_zero.default_keymaps({buffer = bufnr})
+end)
+
+require('lspconfig').pylyzer.setup({})
+	
+require('mason').setup({})
+require('mason-lspconfig').setup({
+  ensure_installed = {},
+  handlers = {
+    lsp_zero.default_setup,
+  },
+})
+
+
 EOF
