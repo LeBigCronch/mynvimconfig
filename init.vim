@@ -8,26 +8,30 @@ set smarttab
 set listchars=tab:\|\ 
 set list
 set relativenumber
+set shiftwidth=4 
+set tabstop=4
 let mapleader="."
 
 call plug#begin()
 
-Plug 'navarasu/onedark.nvim'
 Plug 'ellisonleao/gruvbox.nvim'
 Plug 'https://github.com/rebelot/kanagawa.nvim'
 Plug 'https://github.com/nyoom-engineering/nyoom.nvim'
 Plug 'bluz71/vim-nightfly-colors'
-Plug 'https://github.com/savq/melange-nvim'
 Plug 'rose-pine/neovim'
 Plug 'https://github.com/Shatur/neovim-ayu'
+Plug 'https://github.com/sainttttt/flesh-and-blood'
+Plug 'ghifarit53/tokyonight-vim'
 
 "Plug 'https://github.com/vim-airline/vim-airline'
-Plug 'tpope/vim-fugitive'
+Plug 'https://github.com/xolox/vim-notes'
+Plug 'https://github.com/xolox/vim-misc'
+" Plug 'tpope/vim-fugitive'
 Plug 'https://github.com/nvim-lualine/lualine.nvim'
 Plug 'https://github.com/preservim/nerdtree'
 Plug 'https://github.com/nvim-treesitter/nvim-treesitter'
-Plug 'nvim-treesitter/playground'
-Plug 'https://github.com/tpope/vim-surround'
+" Plug 'nvim-treesitter/playground'
+" Plug 'https://github.com/tpope/vim-surround'
 Plug 'https://github.com/tpope/vim-commentary'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
@@ -58,6 +62,7 @@ call plug#end()
 
 autocmd VimEnter * TSEnable highlight
 colorscheme gruvbox 
+colorscheme melange
 
 let b:ale_linters = {'python': ['flake8']} 
 
@@ -72,6 +77,7 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " doing stuff faster
 nnoremap <C-s> :w<cr>
+nnoremap ww :w<cr>
 nnoremap wq :wq<cr>
 nnoremap qq :q!<cr>
 
@@ -106,7 +112,7 @@ xnoremap "p", "_dP
 nnoremap <leader>e :NERDTreeToggle<cr>
 
 " search and replace quicker
-nnoremap <C-S-h> :%s/
+nnoremap ss :%s/
 
 nnoremap <leader>fr :browse oldfiles<cr>
 
@@ -232,6 +238,5 @@ require('mason-lspconfig').setup({
     lsp_zero.default_setup,
   },
 })
-
 
 EOF
