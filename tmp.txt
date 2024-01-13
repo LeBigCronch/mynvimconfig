@@ -1,0 +1,30 @@
+tlpui
+xsensors
+krita
+extensions manager
+	blur my shell
+	burn my windows
+	window effects
+	control blur effect on lock screen
+	fly pie
+	gesture improvements
+	gnome 4x ui improvements
+	material you colors
+kitty
+proton
+fish
+pycharm
+links/lynx
+kalgebra
+ranger
+
+git
+	ani cli
+	boggle
+	clothes to lint
+	pond
+	susfetch
+	tlpui
+	neofetch
+
+
