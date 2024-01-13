@@ -61,8 +61,7 @@ Plug 'w0rp/ale'
 call plug#end()
 
 autocmd VimEnter * TSEnable highlight
-colorscheme gruvbox 
-colorscheme melange
+colorscheme tokyonight
 
 let b:ale_linters = {'python': ['flake8']} 
 
@@ -229,14 +228,15 @@ lsp_zero.on_attach(function(client, bufnr)
   lsp_zero.default_keymaps({buffer = bufnr})
 end)
 
-require('lspconfig').pylyzer.setup({})
+--require('lspconfig').pylyzer.setup({})
 	
-require('mason').setup({})
-require('mason-lspconfig').setup({
-  ensure_installed = {},
-  handlers = {
-    lsp_zero.default_setup,
-  },
-})
+--require('mason').setup({})
+--require('mason-lspconfig').setup({
+  --ensure_installed = {},
+  --handlers = {
+    --lsp_zero.default_setup,
+  --},
+--})
+
 
 EOF
