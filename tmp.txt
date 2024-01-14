@@ -27,4 +27,11 @@ git
 	tlpui
 	neofetch
 
+keybinds:
+	bright: light -U/A 10
+	bright smol: light -U/A 1
+	vol: amixer -c 0 set Master 5%- -q
+	less vol: amixer -c 0 set Master 2%- -q
+	firefox: alt f 
+	term
 
