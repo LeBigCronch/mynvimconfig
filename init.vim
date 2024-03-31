@@ -14,18 +14,23 @@ let mapleader="."
 
 call plug#begin()
 
+"colorschmes
 Plug 'ellisonleao/gruvbox.nvim'
 Plug 'https://github.com/rebelot/kanagawa.nvim'
 Plug 'https://github.com/nyoom-engineering/nyoom.nvim'
 Plug 'bluz71/vim-nightfly-colors'
 Plug 'rose-pine/neovim'
-Plug 'https://github.com/Shatur/neovim-ayu'
+Plug 'https://github.com/EdenEast/nightfox.nvim'
 Plug 'https://github.com/sainttttt/flesh-and-blood'
-Plug 'ghifarit53/tokyonight-vim'
+Plug 'https://github.com/pineapplegiant/spaceduck'
+Plug 'https://github.com/tiagovla/tokyodark.nvim'
+Plug 'https://github.com/zootedb0t/citruszest.nvim'
+Plug 'https://github.com/ajmwagar/vim-deus'
+Plug 'https://github.com/vim-scripts/C64.vim'
 
 "Plug 'https://github.com/vim-airline/vim-airline'
-Plug 'https://github.com/xolox/vim-notes'
-Plug 'https://github.com/xolox/vim-misc'
+" Plug 'https://github.com/xolox/vim-notes'
+" Plug 'https://github.com/xolox/vim-misc'
 " Plug 'tpope/vim-fugitive'
 Plug 'https://github.com/nvim-lualine/lualine.nvim'
 Plug 'https://github.com/preservim/nerdtree'
@@ -40,7 +45,7 @@ Plug 'https://github.com/mbbill/undotree'
 
 " LSP Support
 Plug 'neovim/nvim-lspconfig'
-" Autocompletion
+" " Autocompletion
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
@@ -48,7 +53,7 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'saadparwaiz1/cmp_luasnip'
 
-" Autocompletion
+"Autocompletion
 Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v3.x'}
 
 Plug 'https://github.com/williamboman/mason.nvim'
@@ -61,12 +66,14 @@ Plug 'w0rp/ale'
 call plug#end()
 
 autocmd VimEnter * TSEnable highlight
-colorscheme tokyonight
+colorscheme gruvbox
+colorscheme spaceduck
+highlight Comment ctermfg=none guifg=#407040
 
 let b:ale_linters = {'python': ['flake8']} 
 
 "undotree
-nnoremap <C-u> :UndotreeToggle<CR>
+nnoremap <leader>u :UndotreeToggle<CR>
 
 " Find files using Telescope 
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
@@ -76,7 +83,7 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " doing stuff faster
 nnoremap <C-s> :w<cr>
-nnoremap ww :w<cr>
+nnoremap sw :w<cr>
 nnoremap wq :wq<cr>
 nnoremap qq :q!<cr>
 
@@ -115,8 +122,10 @@ nnoremap ss :%s/
 
 nnoremap <leader>fr :browse oldfiles<cr>
 
-"autocompletion stuff
+
+
 lua <<EOF
+vim.o.undofile = true
 require('lualine').setup()
 local cmp_status_ok, cmp = pcall(require, "cmp")
 if not cmp_status_ok then
@@ -228,15 +237,17 @@ lsp_zero.on_attach(function(client, bufnr)
   lsp_zero.default_keymaps({buffer = bufnr})
 end)
 
---require('lspconfig').pylyzer.setup({})
+require('lspconfig').pylyzer.setup({})
+require'lspconfig'.jdtls.setup({})
+
 	
---require('mason').setup({})
---require('mason-lspconfig').setup({
-  --ensure_installed = {},
-  --handlers = {
-    --lsp_zero.default_setup,
-  --},
---})
+require('mason').setup({})
+require('mason-lspconfig').setup({
+  ensure_installed = {},
+  handlers = {
+    lsp_zero.default_setup,
+  },
+})
 
 
 EOF
