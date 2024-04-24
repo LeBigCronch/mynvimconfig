@@ -27,6 +27,8 @@ Plug 'https://github.com/tiagovla/tokyodark.nvim'
 Plug 'https://github.com/zootedb0t/citruszest.nvim'
 Plug 'https://github.com/ajmwagar/vim-deus'
 Plug 'https://github.com/vim-scripts/C64.vim'
+Plug 'https://github.com/folke/tokyonight.nvim'
+Plug 'https://github.com/savq/melange-nvim'
 
 "Plug 'https://github.com/vim-airline/vim-airline'
 " Plug 'https://github.com/xolox/vim-notes'
@@ -72,6 +74,9 @@ highlight Comment ctermfg=none guifg=#407040
 
 let b:ale_linters = {'python': ['flake8']} 
 
+"custom commenting-out of things 
+autocmd FileType vhdl setlocal commentstring=--\ %s
+
 "undotree
 nnoremap <leader>u :UndotreeToggle<CR>
 
@@ -108,6 +113,8 @@ nnoremap <S-h> :bprevious<cr>
 " hold onto line indent in visual mode
 xnoremap > >gv
 xnoremap < <gv
+
+xnoremap <leader>c "+y
 
 " moving text
 xnoremap <A-j> :move '>+1<CR>gv=gv
