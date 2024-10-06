@@ -5,8 +5,8 @@
 set nu
 set autoindent
 set smarttab
-set listchars=tab:\|\ 
-set list
+" set listchars=tab:\|\ 
+" set list
 set relativenumber
 set shiftwidth=4 
 set tabstop=4
@@ -29,6 +29,7 @@ Plug 'https://github.com/ajmwagar/vim-deus'
 Plug 'https://github.com/vim-scripts/C64.vim'
 Plug 'https://github.com/folke/tokyonight.nvim'
 Plug 'https://github.com/savq/melange-nvim'
+Plug 'ARM9/arm-syntax-vim'
 
 "Plug 'https://github.com/vim-airline/vim-airline'
 " Plug 'https://github.com/xolox/vim-notes'
@@ -68,14 +69,15 @@ Plug 'w0rp/ale'
 call plug#end()
 
 autocmd VimEnter * TSEnable highlight
-colorscheme gruvbox
-colorscheme spaceduck
+" colorscheme spaceduck
+colorscheme melange
 highlight Comment ctermfg=none guifg=#407040
 
 let b:ale_linters = {'python': ['flake8']} 
 
 "custom commenting-out of things 
 autocmd FileType vhdl setlocal commentstring=--\ %s
+autocmd FileType assembly setlocal commentstring=\;\ %s
 
 "undotree
 nnoremap <leader>u :UndotreeToggle<CR>
@@ -88,9 +90,9 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " doing stuff faster
 nnoremap <C-s> :w<cr>
-nnoremap sw :w<cr>
-nnoremap wq :wq<cr>
-nnoremap qq :q!<cr>
+nnoremap <Space>w :w<cr>
+nnoremap <Space>s :wq<cr>
+nnoremap <Space>q :q!<cr>
 
 nnoremap <C-t> :NERDTreeToggle<CR>
 
@@ -129,7 +131,7 @@ nnoremap ss :%s/
 
 nnoremap <leader>fr :browse oldfiles<cr>
 
-
+"au BufNewFile,BufRead *.s,*.S set filetype=arm " arm = armv6/7
 
 lua <<EOF
 vim.o.undofile = true
