@@ -4,6 +4,7 @@
 
 set nu
 set autoindent
+filetype plugin indent on
 set smarttab
 " set listchars=tab:\|\ 
 " set list
@@ -16,6 +17,8 @@ call plug#begin()
 
 "colorschmes
 Plug 'ellisonleao/gruvbox.nvim'
+Plug 'https://github.com/fcpg/vim-orbital'
+Plug 'https://github.com/catppuccin/nvim'
 Plug 'https://github.com/rebelot/kanagawa.nvim'
 Plug 'https://github.com/nyoom-engineering/nyoom.nvim'
 Plug 'bluz71/vim-nightfly-colors'
@@ -30,11 +33,16 @@ Plug 'https://github.com/vim-scripts/C64.vim'
 Plug 'https://github.com/folke/tokyonight.nvim'
 Plug 'https://github.com/savq/melange-nvim'
 Plug 'ARM9/arm-syntax-vim'
+Plug 'https://github.com/yorumicolors/yorumi.nvim'
+Plug 'sam4llis/nvim-tundra' " vim-plug
+Plug 'https://github.com/ferdinandrau/lavish.nvim'
 
 "Plug 'https://github.com/vim-airline/vim-airline'
 " Plug 'https://github.com/xolox/vim-notes'
 " Plug 'https://github.com/xolox/vim-misc'
 " Plug 'tpope/vim-fugitive'
+Plug 'lervag/vimtex'
+Plug 'lervag/vimtex', { 'tag': 'v2.15' }
 Plug 'https://github.com/nvim-lualine/lualine.nvim'
 Plug 'https://github.com/preservim/nerdtree'
 Plug 'https://github.com/nvim-treesitter/nvim-treesitter'
@@ -48,6 +56,7 @@ Plug 'https://github.com/mbbill/undotree'
 
 " LSP Support
 Plug 'neovim/nvim-lspconfig'
+" Plug 'puremourning/vimspector'
 " " Autocompletion
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-buffer'
@@ -66,11 +75,21 @@ Plug 'L3MON4D3/LuaSnip'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'w0rp/ale'
 
+" Plug 'https://github.com/ErichDonGubler/lsp_lines.nvim'
+
+" texpresso (latex thing)
+
+" Plug 'https://github.com/jake-stewart/multicursor.nvim'
+
 call plug#end()
 
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_compiler_method = 'latexrun'
+
 autocmd VimEnter * TSEnable highlight
-" colorscheme spaceduck
-colorscheme melange
+colorscheme nightfly 
+
+
 highlight Comment ctermfg=none guifg=#407040
 
 let b:ale_linters = {'python': ['flake8']} 
@@ -82,6 +101,8 @@ autocmd FileType assembly setlocal commentstring=\;\ %s
 "undotree
 nnoremap <leader>u :UndotreeToggle<CR>
 
+set undofile 
+
 " Find files using Telescope 
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
@@ -92,7 +113,7 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <C-s> :w<cr>
 nnoremap <Space>w :w<cr>
 nnoremap <Space>s :wq<cr>
-nnoremap <Space>q :q!<cr>
+nnoremap <Space>qq :q!<cr>
 
 nnoremap <C-t> :NERDTreeToggle<CR>
 
@@ -129,9 +150,11 @@ nnoremap <leader>e :NERDTreeToggle<cr>
 " search and replace quicker
 nnoremap ss :%s/
 
+nnoremap ":", :<C-f>
+
 nnoremap <leader>fr :browse oldfiles<cr>
 
-"au BufNewFile,BufRead *.s,*.S set filetype=arm " arm = armv6/7
+au BufNewFile,BufRead *.s,*.S set filetype=arm " arm = armv6/7
 
 lua <<EOF
 vim.o.undofile = true
@@ -258,5 +281,11 @@ require('mason-lspconfig').setup({
   },
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "tex",
+    callback = function()
+        vim.cmd("LspStop")
+    end
+})
 
 EOF
