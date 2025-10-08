@@ -87,7 +87,7 @@ let g:vimtex_view_method = 'zathura'
 let g:vimtex_compiler_method = 'latexrun'
 
 autocmd VimEnter * TSEnable highlight
-colorscheme nightfly 
+colorscheme yorumi 
 
 
 highlight Comment ctermfg=none guifg=#407040
@@ -122,6 +122,8 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+command! -nargs=0 Sw w !sudo tee % > /dev/null
 
 " resizing split windows
 nnoremap <C-Up> :resize -2<cr>
